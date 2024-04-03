@@ -65,9 +65,14 @@ def main():
     with st.sidebar:
         # Open AI API 키 입력받기
         input_api = st.text_input(label="OPENAI API 키", placeholder="Enter Your API Key", value="", type="password")
+        warning_message = st.empty()  # 빈 공간 생성
         if input_api != "":
             st.session_state["OPENAI_API"] = input_api
+            warning_message.empty()  # 키가 입력되면 warning 메시지 비우기
+        else:
+            warning_message.warning('API 키를 입력해주세요!', icon='⚠')  
         st.markdown("")
+
         # GPT 모델을 선택하기 위한 라디오 버튼 생성
         st.session_state["openai_model"] = st.radio(label="GPT 모델", options=["gpt-3.5-turbo", "gpt-4"])
         st.markdown("---")
